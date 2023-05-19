@@ -2,9 +2,11 @@
   "name": "warthog-load-testing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "preinstall": "pnpm env use 18.16.0",
+    "prepublish": "pnpm exec tsc",
     "test": "pnpm exec jest"
   },
   "keywords": [],
