@@ -24,6 +24,7 @@
     "dotenv": "^16.0.3"
   },
   "optionalDependencies": {
-    "redis": "^4.6.6"
+    "redis": "^4.6.6",
+    "uuid": "^9.0.0"
   }
 }

@@ -5,6 +5,7 @@ const {
     workerData,
     threadId,
 } = require('node:worker_threads');
+const { setTimeout } = require('node:timers/promises');
 
 require('dotenv').config();
 
@@ -49,7 +50,16 @@ async function main() {
         console.log(`Worker ${threadId} data: ${JSON.stringify(workerData)}`);
         const { setup, test } = require(workerData.path);
         await setup();
-        await test();
+
+        const { SCRIPT_ITERATIONS: iterations } = process.env;
+
+        while (true) {
+            for (let iteration = 0; iteration < iterations; iteration++) {
+                await test();
+            }
+            await setTimeout(1000);
+        }
+
         parentPort.postMessage(1)
     }
 };
