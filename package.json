@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "preinstall": "pnpm env use 18.16.0",
-    "prepublish": "pnpm exec tsc",
+    "preinstall": "pnpm env use --global 18.16.0",
     "test": "pnpm exec jest",
     "test:watch": "pnpm run test --watchAll"
   },
@@ -16,12 +15,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
-    "@types/jest": "^29.5.1",
-    "@types/node": "^20.2.1",
     "husky": "^8.0.3",
-    "jest": "^29.5.0",
-    "ts-jest": "^29.1.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "jest": "^29.5.0"
   }
 }
