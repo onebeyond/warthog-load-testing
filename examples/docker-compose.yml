@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:7.0.11-alpine
+    container_name: warthog-stress-test-redis
+    tmpfs: /data
+    ports:
+      - 6379:6379
+    networks:
+      - warthog_stress_test
+
+networks:
+  warthog_stress_test:
