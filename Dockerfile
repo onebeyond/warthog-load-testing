@@ -14,7 +14,7 @@ RUN pnpm install -r --offline --ignore-pnpmfile --prod
 
 COPY index.js index.js
 COPY src/ src/
-COPY examples/redis/redis.js examples/redis.js
+COPY examples/redis.js examples/redis.js
 
 ARG SCRIPT_PARALLELISM
 ENV SCRIPT_PARALLELISM=$SCRIPT_PARALLELISM

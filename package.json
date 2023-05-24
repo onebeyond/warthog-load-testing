@@ -8,8 +8,8 @@
     "test": "jest --runInBand",
     "test:watch": "pnpm run test --watchAll --runInBand",
     "start": "node ./index.js",
-    "docker:examples:redis:up": "docker-compose -f ./examples/redis/docker-compose.yml up -d",
-    "docker:examples:redis:down": "docker-compose -f ./examples/redis/docker-compose.yml down"
+    "docker:examples:up": "docker-compose -f ./examples/docker-compose.yml up -d",
+    "docker:examples:down": "docker-compose -f ./examples/docker-compose.yml down"
   },
   "keywords": [],
   "author": "",

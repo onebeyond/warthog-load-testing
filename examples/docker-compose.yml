@@ -3,7 +3,7 @@ version: '3'
 services:
     warthog:
         build:
-            context: ../../
+            context: ../
             args:
                 SCRIPT_PARALLELISM: 2
                 SCRIPT_ITERATIONS: 4
