@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "pnpm env use --global 18.16.0",
-    "test": "pnpm exec jest",
+    "test": "jest",
     "test:watch": "pnpm run test --watchAll",
     "start": "node ./index.js",
-    "docker:examples:up": "docker-compose -f examples/docker-compose.yml up -d"
+    "docker:examples:up": "docker-compose -f examples/docker-compose.yml up -d",
+    "docker:examples:down": "docker-compose -f examples/docker-compose.yml down"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +17,15 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@eslint/create-config": "^0.4.3",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "debug": "^4.3.4",

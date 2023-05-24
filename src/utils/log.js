@@ -7,5 +7,5 @@ function customDebug(key, message) {
 }
 
 module.exports = {
-    debug: customDebug,
-}
+    debug: customDebug
+};

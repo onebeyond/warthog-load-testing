@@ -5,17 +5,19 @@ let client;
 
 async function setup() {
     client = createClient();
-    client.on('error', err => console.log('Redis Client Error', err));
+    client.on('error', (err) => {
+        throw new Error('Redis Client Error', err);
+    });
     await client.connect();
 }
 
 async function test() {
     const key = v4();
-    console.log(`Inserting key ${key}`);
-    await client.set(v4(), 'value');
+    // console.info(`Inserting key ${key}`);
+    await client.set(key, 'value');
 }
 
 module.exports = {
     setup,
-    test,
-}
+    test
+};

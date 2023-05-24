@@ -15,4 +15,4 @@ function getParallelismAmount() {
 
 module.exports = {
     getParallelismAmount
-}
+};

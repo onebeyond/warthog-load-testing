@@ -13,16 +13,16 @@ function getTestsList() {
     const { WARTHOG_TESTS_PATH: path } = process.env;
 
     if (!path) {
-        throw new Error(`WARTHOG_TESTS_PATH is ${path}`)
+        throw new Error(`WARTHOG_TESTS_PATH is ${path}`);
     }
     validateFolderExists(path);
 
     const tests = readdirSync(path)
-        .filter(file => {
-            return extname(file) === '.js'
+        .filter((file) => {
+            return extname(file) === '.js';
         })
-        .map(file => {
-            return join(path, file)
+        .map((file) => {
+            return join(path, file);
         });
     debug('fs', `Loaded scripts: ${tests}`);
     return tests;
@@ -30,4 +30,4 @@ function getTestsList() {
 
 module.exports = {
     getTestsList
-}
+};
