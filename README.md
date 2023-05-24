@@ -4,6 +4,8 @@ That is a library developed in <a href="https://nodejs.org">Node.js</a> based on
 
 Some load test scripts already developed can be found in the `examples` folder.
 
+<img src="docs/diagrams/how_it_works_internals.drawio.png" />
+
 ## Configuration
 
 ```bash

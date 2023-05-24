@@ -5,7 +5,7 @@ let client;
 
 async function setup() {
     client = createClient({
-        url: 'redis://warthog-stress-test-redis:6379'
+        url: `redis://${process.env.REDIS_HOST}:6379`
     });
     client.on('error', (err) => {
         throw new Error('Redis Client Error', err);
