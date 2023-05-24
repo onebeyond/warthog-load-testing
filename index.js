@@ -1,74 +1,16 @@
-const { Worker, isMainThread, parentPort, workerData, threadId } = require('node:worker_threads');
+const { isMainThread, parentPort, workerData, threadId } = require('node:worker_threads');
 const { setTimeout } = require('node:timers/promises');
 
 require('dotenv').config();
 
-const { getParallelismAmount } = require('./src/os/cpu');
+const { WARTHOG_DURATION: warthogDuration } = process.env;
 const { getTestsList } = require('./src/os/fs');
-const { debug } = require('./src/utils/log');
+const { create: createWorkersPool } = require('./src/parallelism/pool');
 
 async function main() {
     if (isMainThread) {
         const scripts = getTestsList();
-
-        await Promise.all(
-            scripts.map(async (script) => {
-                const parallelismAmount = getParallelismAmount();
-                const threads = new Set();
-                const { WARTHOG_DURATION: warthogDuration } = process.env;
-
-                debug(
-                    'config',
-                    `Warthog duration ${warthogDuration}, workers ${parallelismAmount}`
-                );
-
-                for (
-                    let workerInstance = 0;
-                    workerInstance < parallelismAmount;
-                    workerInstance += 1
-                ) {
-                    const worker = new Worker(__filename, { workerData: { path: script } });
-                    debug('parallelism:parent', `Trying to create worker ${worker.threadId}`);
-                    threads.add(worker);
-                }
-
-                const iterations = [];
-                threads.forEach((worker) => {
-                    debug(
-                        'parallelism:parent',
-                        `Activating events subscription for worker ${worker.threadId}`
-                    );
-                    worker.on('error', async (error) => {
-                        console.error(error);
-                        await worker.terminate();
-                    });
-
-                    worker.on('exit', () => {
-                        threads.delete(worker);
-
-                        console.log(`Thread exiting, ${threads.size} running...`);
-
-                        if (threads.size === 0) {
-                            debug('parallelism:parent', 'All threads finished');
-                            console.log(
-                                `Total executed iterations for ${script}: ${iterations.length}`
-                            );
-                        }
-                    });
-
-                    worker.on('message', async ({ setupFinished, executedIterations }) => {
-                        if (setupFinished) {
-                            await setTimeout(warthogDuration);
-                            await worker.terminate();
-                        }
-
-                        if (executedIterations) {
-                            iterations.push(executedIterations);
-                        }
-                    });
-                });
-            })
-        );
+        scripts.forEach((script) => createWorkersPool(script, warthogDuration));
     } else {
         console.info(`Worker ${threadId} data: ${JSON.stringify(workerData)}`);
         // eslint-disable-next-line import/no-dynamic-require, global-require
