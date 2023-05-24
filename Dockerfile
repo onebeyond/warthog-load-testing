@@ -13,7 +13,6 @@ RUN pnpm fetch
 RUN pnpm install -r --offline --ignore-pnpmfile --prod
 
 COPY index.js index.js
-COPY .env .env
 COPY src/ src/
 COPY examples/redis/redis.js examples/redis.js
 
