@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    warthog:
+        build:
+            context: ../../
+            args:
+                SCRIPT_PARALLELISM: 2
+                SCRIPT_ITERATIONS: 4
+                WARTHOG_TESTS_PATH: '/usr/src/app/examples'
+                WARTHOG_DURATION: 4000
+        container_name: warthog-stress-test-scripts
+        networks:
+            - warthog_stress_test
+        depends_on:
+            redis:
+                condition: service_started
+    redis:
+        image: redis:7.0.11-alpine
+        container_name: warthog-stress-test-redis
+        tmpfs: /data
+        ports:
+            - 6379:6379
+        networks:
+            - warthog_stress_test
+
+networks:
+    warthog_stress_test:

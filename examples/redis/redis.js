@@ -4,7 +4,9 @@ const { v4 } = require('uuid');
 let client;
 
 async function setup() {
-    client = createClient();
+    client = createClient({
+        url: 'redis://warthog-stress-test-redis:6379'
+    });
     client.on('error', (err) => {
         throw new Error('Redis Client Error', err);
     });
