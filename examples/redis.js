@@ -4,8 +4,9 @@ const { v4 } = require('uuid');
 let client;
 
 async function setup() {
+    const host = process.env.REDIS_HOST || 'localhost';
     client = createClient({
-        url: `redis://${process.env.REDIS_HOST}:6379`
+        url: `redis://${host}:6379`
     });
     client.on('error', (err) => {
         throw new Error('Redis Client Error', err);

@@ -26,11 +26,9 @@ SCRIPT_PARALLELISM=2
 SCRIPT_ITERATIONS=4
 # The path in which to find the scripts to be executed
 WARTHOG_TESTS_PATH=./examples
-# Amount of time in seconds during which the tests will be running
+# Amount of time in milliseconds during which the tests will be running
 WARTHOG_DURATION=4000
 ```
-
-Then you would be able edit `.env` for configuring your scripts running environment.
 
 ## Contribute
 
