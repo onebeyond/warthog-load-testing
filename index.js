@@ -1,4 +1,6 @@
-const { isMainThread, parentPort, workerData, threadId } = require('node:worker_threads');
+#! /usr/bin/env node
+
+const { isMainThread, parentPort, workerData } = require('node:worker_threads');
 const { setTimeout } = require('node:timers/promises');
 
 require('dotenv').config();
@@ -6,7 +8,7 @@ require('dotenv').config();
 const { WARTHOG_DURATION: warthogDuration } = process.env;
 const { getTestsList } = require('./src/os/fs');
 const { create: createWorkersPool } = require('./src/parallelism/pool');
-const { getPerformance } = require('./src/exec/analysis');
+const { getPerformance } = require('./src/performance/analysis');
 
 async function main() {
     /**
@@ -17,16 +19,16 @@ async function main() {
         const scripts = getTestsList();
         scripts.forEach((script) => createWorkersPool(script, warthogDuration));
     } else {
-        console.info(`Worker ${threadId} data: ${JSON.stringify(workerData)}`);
         // eslint-disable-next-line import/no-dynamic-require, global-require
         const { setup, test } = require(workerData.path);
+
         await setup();
         parentPort.postMessage({ setupFinished: true });
 
         const { SCRIPT_ITERATIONS: iterations } = process.env;
-        console.info(`Worker ${threadId} configured iterations ${iterations}`);
 
         let threadIteration = 0;
+
         // eslint-disable-next-line no-constant-condition
         while (true) {
             let loopIteration = 0;

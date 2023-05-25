@@ -5,6 +5,15 @@ RUN mv /root/.local/share/pnpm/pnpm /usr/bin/
 
 WORKDIR /usr/src/app
 
+COPY example/package.json package.json
+COPY example/pnpm-lock.yaml pnpm-lock.yaml
+COPY example/scripts scripts
+
+RUN pnpm fetch
+RUN pnpm install -r --offline --ignore-pnpmfile --prod
+
+WORKDIR /opt/warthog
+
 COPY .npmrc .
 COPY package.json .
 COPY pnpm-lock.yaml .
@@ -14,7 +23,8 @@ RUN pnpm install -r --offline --ignore-pnpmfile --prod
 
 COPY index.js index.js
 COPY src/ src/
-COPY examples/redis.js examples/redis.js
+
+RUN pnpm link --global
 
 ARG SCRIPT_PARALLELISM
 ENV SCRIPT_PARALLELISM=$SCRIPT_PARALLELISM
@@ -30,5 +40,8 @@ ENV WARTHOG_DURATION=$WARTHOG_DURATION
 
 ARG REDIS_HOST
 ENV REDIS_HOST=$REDIS_HOST
+
+WORKDIR /usr/src/app
+RUN pnpm install /opt/warthog
 
 CMD ["tail", "-f", "/dev/null"]

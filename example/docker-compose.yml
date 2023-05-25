@@ -7,7 +7,7 @@ services:
             args:
                 SCRIPT_PARALLELISM: 2
                 SCRIPT_ITERATIONS: 4
-                WARTHOG_TESTS_PATH: '/usr/src/app/examples'
+                WARTHOG_TESTS_PATH: '/usr/src/app/scripts'
                 WARTHOG_DURATION: 4000
                 REDIS_HOST: warthog-stress-test-redis
         container_name: warthog-stress-test-scripts
