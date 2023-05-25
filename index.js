@@ -6,8 +6,13 @@ require('dotenv').config();
 const { WARTHOG_DURATION: warthogDuration } = process.env;
 const { getTestsList } = require('./src/os/fs');
 const { create: createWorkersPool } = require('./src/parallelism/pool');
+const { getPerformance } = require('./src/exec/analysis');
 
 async function main() {
+    /**
+     * There is only one main thread. This means the following conditional would be executed
+     * one single time before creating all the workers.
+     */
     if (isMainThread) {
         const scripts = getTestsList();
         scripts.forEach((script) => createWorkersPool(script, warthogDuration));
@@ -21,15 +26,31 @@ async function main() {
         const { SCRIPT_ITERATIONS: iterations } = process.env;
         console.info(`Worker ${threadId} configured iterations ${iterations}`);
 
+        let threadIteration = 0;
         // eslint-disable-next-line no-constant-condition
         while (true) {
-            for (let iteration = 0; iteration < iterations; iteration += 1) {
-                // eslint-disable-next-line no-await-in-loop
-                await test();
-                parentPort.postMessage({ executedIterations: { threadId } });
-            }
+            let loopIteration = 0;
+            // eslint-disable-next-line no-loop-func
+            Array.from({ length: iterations }).forEach(async () => {
+                loopIteration += 1;
+                try {
+                    const { duration } = await getPerformance({
+                        test,
+                        iterations: {
+                            loopIteration,
+                            threadIteration
+                        }
+                    });
+                    parentPort.postMessage({ iteration: { duration } });
+                } catch (error) {
+                    console.log(error);
+                    parentPort.postMessage({ iteration: {} });
+                }
+            });
+
             // eslint-disable-next-line no-await-in-loop
             await setTimeout(1000);
+            threadIteration += 1;
         }
     }
 }
