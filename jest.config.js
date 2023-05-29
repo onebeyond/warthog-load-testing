@@ -31,7 +31,7 @@ module.exports = {
     // ],
 
     // Indicates which provider should be used to instrument code for coverage
-    coverageProvider: 'v8'
+    coverageProvider: 'v8',
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: [
@@ -94,7 +94,7 @@ module.exports = {
     // modulePathIgnorePatterns: [],
 
     // Activates notifications for test results
-    // notify: false,
+    notify: false
 
     // An enum that specifies notification mode. Requires { notify: true }
     // notifyMode: "failure-change",
