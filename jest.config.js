@@ -4,12 +4,11 @@
  */
 
 module.exports = {
-    testTimeout: 60000,
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
     // Stop running tests after `n` failures
-    // bail: 0,
+    bail: 1,
 
     // The directory where Jest should store its cached dependency information
     // cacheDirectory: "/tmp/jest_rs",
