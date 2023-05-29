@@ -1,6 +1,6 @@
 const { Worker } = require('node:worker_threads');
-const { debug } = require('../utils/log');
-const { handleEvents: handleThreadEvent } = require('./threads');
+const { debug } = require('../../utils/log');
+const { handleEvents: handleThreadEvent } = require('../threads/events');
 
 const debugLabel = 'parallelism:worker';
 const { WARTHOG_DURATION: warthogDuration } = process.env;

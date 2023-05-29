@@ -1,6 +1,6 @@
-const { getParallelismAmount } = require('../os/cpu');
-const { debug } = require('../utils/log');
-const { getTestsList } = require('../os/fs');
+const { getParallelismAmount } = require('../../os/cpu');
+const { debug } = require('../../utils/log');
+const { getTestsList } = require('../../os/fs');
 const { create: createWorker } = require('./worker');
 
 const parallelismAmount = getParallelismAmount();
