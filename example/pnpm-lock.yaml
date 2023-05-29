@@ -7,6 +7,9 @@ dependencies:
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
+  warthog:
+    specifier: link:..
+    version: link:..
 
 packages:
 

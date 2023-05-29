@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "redis": "^4.6.6",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "warthog": "link:.."
   }
 }

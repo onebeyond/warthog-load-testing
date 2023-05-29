@@ -5,9 +5,7 @@ const { setTimeout } = require('node:timers/promises');
 
 require('dotenv').config();
 
-const { WARTHOG_DURATION: warthogDuration } = process.env;
-const { getTestsList } = require('./src/os/fs');
-const { create: createWorkersPool } = require('./src/parallelism/pool');
+const { createTestsPools } = require('./src/parallelism/pool');
 const { getPerformance } = require('./src/performance/analysis');
 
 async function main() {
@@ -16,8 +14,7 @@ async function main() {
      * one single time before creating all the workers.
      */
     if (isMainThread) {
-        const scripts = getTestsList();
-        scripts.forEach((script) => createWorkersPool(script, warthogDuration));
+        createTestsPools();
     } else {
         // eslint-disable-next-line import/no-dynamic-require, global-require
         const { setup, test } = require(workerData.path);
