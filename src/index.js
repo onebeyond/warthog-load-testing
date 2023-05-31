@@ -2,8 +2,8 @@
 
 require('dotenv').config();
 const { isMainThread } = require('node:worker_threads');
-const { createTestsPools } = require('./src/parallelism/parent/pool');
-const { executeChild: execChildThread } = require('./src/parallelism/threads/exec');
+const { createTestsPools } = require('./parallelism/parent/pool');
+const { executeChild: execChildThread } = require('./parallelism/threads/exec');
 
 async function main() {
     if (isMainThread) {

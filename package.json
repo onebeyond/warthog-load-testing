@@ -4,14 +4,14 @@
     "description": "",
     "main": "index.js",
     "bin": {
-        "warthog": "./index.js"
+        "warthog": "./src/index.js"
     },
     "scripts": {
         "node:env:set": "pnpm env use --global 18.16.0",
-        "test": "jest --runInBand",
+        "test": "pnpm exec jest",
         "test:watch": "pnpm run test --watchAll",
         "test:e2e": "pnpm run test --config ./test/jest-e2e.json --forceExit",
-        "start": "node ./index.js"
+        "start": "node ./src/index.js"
     },
     "keywords": [],
     "author": "",

@@ -3,3 +3,4 @@ coverage
 pnpm-lock.yaml
 test
 examples
+**spec.js**

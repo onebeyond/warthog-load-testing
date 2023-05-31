@@ -21,7 +21,6 @@ COPY pnpm-lock.yaml .
 RUN pnpm fetch
 RUN pnpm install -r --offline --ignore-pnpmfile --prod
 
-COPY index.js index.js
 COPY src/ src/
 
 RUN pnpm link --global
