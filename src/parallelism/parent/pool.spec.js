@@ -40,7 +40,11 @@ describe('main worker', () => {
         const { createTestsPools } = require('./pool');
         createTestsPools();
         expect(mocks.parallelism.parent.worker.create).toHaveBeenCalledTimes(4);
-        expect(mocks.parallelism.parent.worker.create).toHaveBeenCalledWith('script_1.js');
-        expect(mocks.parallelism.parent.worker.create).toHaveBeenCalledWith('script_2.js');
+        expect(mocks.parallelism.parent.worker.create.mock.calls).toEqual([
+            ['script_1.js'],
+            ['script_1.js'],
+            ['script_2.js'],
+            ['script_2.js']
+        ]);
     });
 });
