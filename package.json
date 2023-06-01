@@ -13,11 +13,14 @@
         "test:e2e": "pnpm run test --config ./test/jest-e2e.json --forceExit",
         "start": "node ./src/index.js"
     },
-    "keywords": [],
+    "keywords": [
+        "load-testing",
+        "stress"
+    ],
     "author": "",
     "license": "GPL-3.0",
     "engines": {
-        "node": ">=18"
+        "node": ">=18 <=20"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.6.3",
