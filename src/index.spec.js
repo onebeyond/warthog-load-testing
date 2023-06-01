@@ -1,4 +1,4 @@
-describe('workers', () => {
+describe('worker threads', () => {
     const mocks = {
         parallelism: {
             parent: {
