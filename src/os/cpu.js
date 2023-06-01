@@ -5,7 +5,7 @@ const { debug } = require('../utils/log');
 function getParallelismAmount() {
     const { SCRIPT_PARALLELISM: manuallySetScriptParallelism } = process.env;
     if (manuallySetScriptParallelism) {
-        return manuallySetScriptParallelism;
+        return +manuallySetScriptParallelism;
     }
 
     const parallelismAmount = availableParallelism();
