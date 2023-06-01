@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+pnpm run test
+pnpm run test:e2e
+
 pnpm exec eslint . --fix
 pnpm exec commitlint --edit $1
