@@ -5,7 +5,7 @@ const { debug } = require('../utils/log');
 
 function validateFolderExists(path) {
     if (!existsSync(path)) {
-        throw new Error(`${path} does not exist on the current file system`);
+        throw new Error(`"${path}" does not exist on the current file system`);
     }
 }
 
