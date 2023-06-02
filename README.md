@@ -1,19 +1,22 @@
+# Warthog
+
 :warning: This project is still under development :warning:
 
-__*Warthog*__ is a powerful tool to launch your __load tests__ without any kind of limitation when it comes to choosing the level of load or the types of resources you want to test. 
+<a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> is a powerful tool to launch your <a href="https://en.wikipedia.org/wiki/Load_testing#Software_load_testing">**load tests**</a> without any kind of limitation when it comes to choosing the level of load or the types of resources you want to test.
 
 Key features:
-- __Friendly__: It is developed to provide the greatest possible simplicity to developers.
-- __Familiar__: Tests are written in __*Javascript*__ and interpreted by the <a href="https://nodejs.org">Node.js</a> runtime.
-- __Performance__: Optimized to reduce latencies when calculating the test suite scores.
-- __Limitless__: It supports __any protocol__ that <a href="https://nodejs.org">Node.js</a> allows, you don't need to extend anything.
 
+-   **Friendly**: It is developed to provide the greatest possible simplicity to developers.
+-   **Familiar**: The tests needs to be created by using <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript">JavaScript</a>, which is a versatile and widely-used programming language.
+-   **Simplicity**: The tests are executed under the <a href="https://nodejs.org">Node.js</a> runtime, which offers a robust ecosystem, efficient performance, and extensive libraries, simplifying the development process.
+-   **Performance**: Optimized to reduce latencies when calculating the test suite scores.
+-   **Limitless**: It supports **any protocol** that the <a href="https://nodejs.org/api/all.html">runtime allows</a>, you don't need to extend anything.
 
 ## Examples
 
-Some load test scripts already developed can be found in the `./examples` folder of this repository.
+There is an already developed <a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> project full of load test scripts already developed. That one can be found under the <a href="https://github.com/onebeyond/warthog-load-testing/tree/main/example">example</a> folder of this repository.
 
-You can run scripts like this on the CLI, or in your CI.
+The tool is ready for being integrated with a continuous integration pipeline, enabling quality assurance processes and effortless execution of scripts for automated testing.
 
 ## Configuration
 
@@ -25,7 +28,7 @@ SCRIPT_PARALLELISM=2
 # Number of iterations per second on each thread.
 SCRIPT_ITERATIONS=4
 # The path in which to find the scripts to be executed
-WARTHOG_TESTS_PATH=./examples
+WARTHOG_TESTS_PATH=./tests
 # Amount of time in milliseconds during which the tests will be running
 WARTHOG_DURATION=4000
 ```

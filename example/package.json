@@ -1,19 +1,19 @@
 {
-  "name": "example",
-  "version": "1.0.0",
-  "description": "Example of a real project for load testing Redis resource performance",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./index.js",
-    "docker:up": "docker-compose -f ./docker-compose.yml up -d",
-    "docker:down": "docker-compose -f ./docker-compose.yml down"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "redis": "^4.6.6",
-    "uuid": "^9.0.0",
-    "warthog": "link:.."
-  }
+    "name": "example",
+    "version": "1.0.0",
+    "description": "Example of a real project for load testing Redis resource performance",
+    "main": "index.js",
+    "scripts": {
+        "start": "pnpm exec warthog",
+        "docker:up": "docker-compose -f ./docker-compose.yml up -d",
+        "docker:down": "docker-compose -f ./docker-compose.yml down"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "redis": "^4.6.6",
+        "uuid": "^9.0.0",
+        "warthog": "link:.."
+    }
 }
