@@ -5,12 +5,10 @@ const { getPerformance } = require('../../performance/analysis');
 
 async function executeChild() {
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    const { setup, test } = require(workerData.path);
+    const { setup, test, iterations } = require(workerData.path);
 
     await setup();
     parentPort.postMessage({ setupFinished: true });
-
-    const { SCRIPT_ITERATIONS: iterations } = process.env;
 
     let threadIteration = 0;
 

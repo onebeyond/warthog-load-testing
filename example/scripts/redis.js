@@ -21,6 +21,7 @@ async function test() {
 }
 
 module.exports = {
+    iterations: 4,
     setup,
     test
 };
