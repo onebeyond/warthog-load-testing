@@ -1,4 +1,10 @@
 describe('Execute test exports', () => {
+    const mocks = {
+        node: {
+            parentPort: jest.fn(() => {})
+        }
+    };
+
     describe('should fail', () => {
         describe('detect malformed test section', () => {
             it('setup', async () => {
@@ -77,12 +83,16 @@ describe('Execute test exports', () => {
                     return {
                         workerData: {
                             path: test
+                        },
+                        parentPort: {
+                            postMessage: mocks.node.parentPort
                         }
                     };
                 });
 
                 const { executeChild } = require('./exec');
                 await expect(executeChild()).rejects.toThrow('Custom forced error');
+                expect(mocks.node.parentPort).toHaveBeenCalledTimes(0);
             });
         });
     });
