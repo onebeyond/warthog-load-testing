@@ -40,7 +40,8 @@
     },
     "dependencies": {
         "debug": "^4.3.4",
-        "dotenv": "^16.0.3"
+        "dotenv": "^16.0.3",
+        "lodash": "^4.17.21"
     },
     "peerDependencies": {
         "node-notifier": "^10.0.1"

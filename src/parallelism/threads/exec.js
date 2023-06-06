@@ -1,11 +1,39 @@
 const { parentPort, workerData } = require('node:worker_threads');
 const { setTimeout } = require('node:timers/promises');
+const { isFunction, isNumber } = require('lodash');
 
 const { getPerformance } = require('../../performance/analysis');
 
+function getTestExports({ setup, test, iterations }) {
+    const errors = {
+        function: (functionName) => new Error(`"${functionName}" function must be defined`),
+        iterations: (invalidIterations) =>
+            new Error(`Test iterations "${invalidIterations}" is not valid`)
+    };
+
+    if (!isFunction(setup)) {
+        throw errors.function('setup');
+    }
+
+    if (!isFunction(test)) {
+        throw errors.function('test');
+    }
+
+    if (!isNumber(iterations)) {
+        throw errors.iterations(iterations);
+    }
+
+    return {
+        setup,
+        test,
+        iterations
+    };
+}
+
 async function executeChild() {
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    const { setup, test, iterations } = require(workerData.path);
+    const testImport = require(workerData.path);
+    const { setup, test, iterations } = getTestExports(testImport);
 
     await setup();
     parentPort.postMessage({ setupFinished: true });
