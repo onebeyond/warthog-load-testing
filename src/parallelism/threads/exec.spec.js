@@ -7,8 +7,8 @@ describe('Execute test exports', () => {
 
                     const test = pathResolve(
                         __dirname,
-                        '../../../test/fixtures/malformed-tests/missing-setup.js'
-                    ).toString();
+                        '../../../test/fixtures/tests/malformed/missing-setup.js'
+                    );
 
                     return {
                         workerData: {
@@ -27,8 +27,8 @@ describe('Execute test exports', () => {
 
                     const test = pathResolve(
                         __dirname,
-                        '../../../test/fixtures/malformed-tests/missing-test.js'
-                    ).toString();
+                        '../../../test/fixtures/tests/malformed/missing-test.js'
+                    );
 
                     return {
                         workerData: {
@@ -47,8 +47,8 @@ describe('Execute test exports', () => {
 
                     const test = pathResolve(
                         __dirname,
-                        '../../../test/fixtures/malformed-tests/missing-iterations.js'
-                    ).toString();
+                        '../../../test/fixtures/tests/malformed/missing-iterations.js'
+                    );
 
                     return {
                         workerData: {
@@ -61,6 +61,28 @@ describe('Execute test exports', () => {
                 await expect(executeChild()).rejects.toThrow(
                     'Test iterations "undefined" is not valid'
                 );
+            });
+        });
+
+        describe('handle thrown error', () => {
+            it('setup', async () => {
+                jest.mock('node:worker_threads', () => {
+                    const { resolve: pathResolve } = require('node:path');
+
+                    const test = pathResolve(
+                        __dirname,
+                        '../../../test/fixtures/tests/errors/setup-throwing.js'
+                    );
+
+                    return {
+                        workerData: {
+                            path: test
+                        }
+                    };
+                });
+
+                const { executeChild } = require('./exec');
+                await expect(executeChild()).rejects.toThrow('Custom forced error');
             });
         });
     });
