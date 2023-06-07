@@ -5,7 +5,7 @@ async function test() {
 }
 
 module.exports = {
-    iterations: 1,
+    stages: [{ iterations: 1, seconds: 1 }],
     setup: () => {},
     test
 };

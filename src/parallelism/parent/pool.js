@@ -6,17 +6,17 @@ const { create: createWorker } = require('./worker');
 const parallelismAmount = getParallelismAmount();
 const debugLabel = 'parallelism:parent';
 
-function createPoolWorkers(test) {
+function createPoolWorkers(testPath) {
     debug(debugLabel, `Creating ${parallelismAmount} workers ...`);
 
     for (let workerInstance = 0; workerInstance < parallelismAmount; workerInstance += 1) {
-        createWorker(test);
+        createWorker(testPath);
     }
 }
 
 function createTestsPools() {
-    const tests = getTestsList();
-    tests.forEach((test) => createPoolWorkers(test));
+    const testPaths = getTestsList();
+    testPaths.forEach((testPath) => createPoolWorkers(testPath));
 }
 
 module.exports = {

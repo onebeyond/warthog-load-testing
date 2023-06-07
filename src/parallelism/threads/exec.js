@@ -1,14 +1,12 @@
 const { parentPort, workerData } = require('node:worker_threads');
 const { setTimeout } = require('node:timers/promises');
-const { isFunction, isNumber } = require('lodash');
+const { isFunction } = require('lodash');
 
 const { getPerformance } = require('../../performance/analysis');
 
-function getTestExports({ setup, test, iterations }) {
+function getTestExports({ setup, test }) {
     const errors = {
-        function: (functionName) => new Error(`"${functionName}" function must be defined`),
-        iterations: (invalidIterations) =>
-            new Error(`Test iterations "${invalidIterations}" is not valid`)
+        function: (functionName) => new Error(`"${functionName}" function must be defined`)
     };
 
     if (!isFunction(setup)) {
@@ -19,21 +17,20 @@ function getTestExports({ setup, test, iterations }) {
         throw errors.function('test');
     }
 
-    if (!isNumber(iterations)) {
-        throw errors.iterations(iterations);
-    }
-
     return {
         setup,
-        test,
-        iterations
+        test
     };
 }
 
 async function executeChild() {
+    parentPort.on('message', ({ iterations }) => {
+        workerData.iterations = iterations;
+    });
+
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const testImport = require(workerData.path);
-    const { setup, test, iterations } = getTestExports(testImport);
+    const { setup, test } = getTestExports(testImport);
 
     await setup();
     parentPort.postMessage({ setupFinished: true });
@@ -44,7 +41,7 @@ async function executeChild() {
     while (true) {
         let loopIteration = 0;
         // eslint-disable-next-line no-loop-func
-        Array.from({ length: iterations }).forEach(async () => {
+        Array.from({ length: workerData.iterations }).forEach(async () => {
             loopIteration += 1;
             try {
                 const { duration } = await getPerformance({

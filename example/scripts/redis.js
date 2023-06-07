@@ -21,7 +21,12 @@ async function test() {
 }
 
 module.exports = {
-    iterations: 4,
+    stages: [
+        {
+            iterations: 4,
+            seconds: 4
+        }
+    ],
     setup,
     test
 };

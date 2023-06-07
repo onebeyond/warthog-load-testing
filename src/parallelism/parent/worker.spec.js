@@ -21,7 +21,12 @@ describe('worker', () => {
     it('should create the thread', () => {
         jest.mock('../threads/events', () => mocks.parallelism.threads.events);
         const { create } = require('./worker');
-        create('script_1.js');
-        expect(mocks.node.Worker.mock.calls[0][1]).toEqual({ workerData: { path: 'script_1.js' } });
+        create('../../../test/fixtures/tests/working/minimum-timeout.js');
+        expect(mocks.node.Worker.mock.calls[0][1]).toEqual({
+            workerData: {
+                iterations: 1,
+                path: '../../../test/fixtures/tests/working/minimum-timeout.js'
+            }
+        });
     });
 });

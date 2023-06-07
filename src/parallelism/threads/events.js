@@ -8,7 +8,7 @@ const scriptIterations = {
     error: []
 };
 
-function handleEvents(worker, duration) {
+function handleEvents(worker, stages) {
     const { threadId } = worker;
 
     threads.add(threadId);
@@ -47,7 +47,12 @@ function handleEvents(worker, duration) {
         }
 
         if (setupFinished) {
-            await setTimeout(duration);
+            // eslint-disable-next-line no-restricted-syntax
+            for (const stage of stages) {
+                worker.postMessage({ iterations: stage.iterations });
+                // eslint-disable-next-line no-await-in-loop
+                await setTimeout(stage.seconds * 1000);
+            }
             await worker.terminate();
         }
     });

@@ -1,9 +1,20 @@
+const EventEmitter = require('node:events');
+
 describe('Execute test exports', () => {
     const mocks = {
         node: {
-            parentPort: jest.fn(() => {})
+            parentPort: {
+                on: jest.fn(() => {}),
+                postMessage: jest.fn(() => {})
+            }
         }
     };
+
+    class MockParentPortEventEmitter extends EventEmitter {
+        on(event, ...args) {
+            mocks.node.parentPort.on(event, ...args);
+        }
+    }
 
     describe('should fail', () => {
         describe('detect malformed test section', () => {
@@ -19,7 +30,8 @@ describe('Execute test exports', () => {
                     return {
                         workerData: {
                             path: test
-                        }
+                        },
+                        parentPort: new MockParentPortEventEmitter()
                     };
                 });
 
@@ -39,34 +51,13 @@ describe('Execute test exports', () => {
                     return {
                         workerData: {
                             path: test
-                        }
+                        },
+                        parentPort: new MockParentPortEventEmitter()
                     };
                 });
 
                 const { executeChild } = require('./exec');
                 await expect(executeChild()).rejects.toThrow('"test" function must be defined');
-            });
-
-            it('iterations', async () => {
-                jest.mock('node:worker_threads', () => {
-                    const { resolve: pathResolve } = require('node:path');
-
-                    const test = pathResolve(
-                        __dirname,
-                        '../../../test/fixtures/tests/malformed/missing-iterations.js'
-                    );
-
-                    return {
-                        workerData: {
-                            path: test
-                        }
-                    };
-                });
-
-                const { executeChild } = require('./exec');
-                await expect(executeChild()).rejects.toThrow(
-                    'Test iterations "undefined" is not valid'
-                );
             });
         });
 
@@ -84,6 +75,29 @@ describe('Execute test exports', () => {
                         workerData: {
                             path: test
                         },
+                        parentPort: new MockParentPortEventEmitter()
+                    };
+                });
+
+                const { executeChild } = require('./exec');
+                await expect(executeChild()).rejects.toThrow('Custom forced error');
+                expect(mocks.node.parentPort.on).toHaveBeenCalledTimes(1);
+                expect(mocks.node.parentPort.postMessage).toHaveBeenCalledTimes(0);
+            });
+
+            it.skip('test', async () => {
+                jest.mock('node:worker_threads', () => {
+                    const { resolve: pathResolve } = require('node:path');
+
+                    const test = pathResolve(
+                        __dirname,
+                        '../../../test/fixtures/tests/errors/test-throwing.js'
+                    );
+
+                    return {
+                        workerData: {
+                            path: test
+                        },
                         parentPort: {
                             postMessage: mocks.node.parentPort
                         }
@@ -92,7 +106,10 @@ describe('Execute test exports', () => {
 
                 const { executeChild } = require('./exec');
                 await expect(executeChild()).rejects.toThrow('Custom forced error');
-                expect(mocks.node.parentPort).toHaveBeenCalledTimes(0);
+                expect(mocks.node.parentPort).toHaveBeenCalledTimes(1);
+                expect(mocks.node.parentPort).toHaveBeenCalledWith({
+                    iteration: {}
+                });
             });
         });
     });

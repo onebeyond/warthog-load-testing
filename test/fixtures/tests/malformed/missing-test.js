@@ -1,4 +1,4 @@
 module.exports = {
     setup: () => {},
-    iterations: 1
+    stages: [{ iterations: 1, seconds: 1 }]
 };

@@ -25,12 +25,8 @@ Create an `.env` file with your custom values:
 ```bash
 # Amount of CPU threads executing the test scripts.
 SCRIPT_PARALLELISM=2
-# Number of iterations per second on each thread.
-SCRIPT_ITERATIONS=4
 # The path in which to find the scripts to be executed
 WARTHOG_TESTS_PATH=./tests
-# Amount of time in milliseconds during which the tests will be running
-WARTHOG_DURATION=4000
 ```
 
 ## Contribute
