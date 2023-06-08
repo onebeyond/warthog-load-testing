@@ -9,7 +9,6 @@ async function executeChild() {
         workerData.iterations = iterations;
     });
 
-    // eslint-disable-next-line import/no-dynamic-require, global-require
     const testLifecycleValidator = validateTestLifecycle.byTestPath(workerData.path);
     const { setup, test } = {
         setup: testLifecycleValidator.setup(),
