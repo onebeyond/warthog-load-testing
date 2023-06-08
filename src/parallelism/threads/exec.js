@@ -1,27 +1,8 @@
 const { parentPort, workerData } = require('node:worker_threads');
 const { setTimeout } = require('node:timers/promises');
-const { isFunction } = require('lodash');
 
 const { getPerformance } = require('../../performance/analysis');
-
-function getTestExports({ setup, test }) {
-    const errors = {
-        function: (functionName) => new Error(`"${functionName}" function must be defined`)
-    };
-
-    if (!isFunction(setup)) {
-        throw errors.function('setup');
-    }
-
-    if (!isFunction(test)) {
-        throw errors.function('test');
-    }
-
-    return {
-        setup,
-        test
-    };
-}
+const { validate: validateTestLifecycle } = require('../../utils/test/lifecycle');
 
 async function executeChild() {
     parentPort.on('message', ({ iterations }) => {
@@ -29,8 +10,11 @@ async function executeChild() {
     });
 
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    const testImport = require(workerData.path);
-    const { setup, test } = getTestExports(testImport);
+    const testLifecycleValidator = validateTestLifecycle.byTestPath(workerData.path);
+    const { setup, test } = {
+        setup: testLifecycleValidator.setup(),
+        test: testLifecycleValidator.test()
+    };
 
     await setup();
     parentPort.postMessage({ setupFinished: true });

@@ -28,5 +28,9 @@ describe('worker', () => {
                 path: '../../../test/fixtures/tests/working/minimum-timeout.js'
             }
         });
+        expect(mocks.parallelism.threads.events.handleEvents).toHaveBeenCalledTimes(1);
+        expect(mocks.parallelism.threads.events.handleEvents).toHaveBeenCalledWith({}, [
+            { iterations: 1, seconds: 1 }
+        ]);
     });
 });
