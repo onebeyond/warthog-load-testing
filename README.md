@@ -29,6 +29,10 @@ SCRIPT_PARALLELISM=2
 WARTHOG_TESTS_PATH=./tests
 ```
 
+## The insides
+
+<img src="docs/diagrams/how_it_works_internals.svg" />
+
 ## Contribute
 
 If you want to contribute or help with the development of Warthog, start by reading `CONTRIBUTING.md`.

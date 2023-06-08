@@ -32,7 +32,3 @@ pnpm exec eslint . --fix
 There is a <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">git hook</a> that will have been installed via <a href="https://www.npmjs.com/package/husky">husky</a> in charge of checking the syntax in the commits by using <a href="https://www.npmjs.com/package/@commitlint/cli">commitlint</a>.
 
 For more details check the file `.husky/commit-msg`
-
-## The insides
-
-<img src="docs/diagrams/how_it_works_internals.drawio.png" />
