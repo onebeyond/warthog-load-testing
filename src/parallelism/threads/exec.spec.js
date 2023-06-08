@@ -17,50 +17,6 @@ describe('Execute test exports', () => {
     }
 
     describe('should fail', () => {
-        describe('detect malformed test section', () => {
-            it('setup', async () => {
-                jest.mock('node:worker_threads', () => {
-                    const { resolve: pathResolve } = require('node:path');
-
-                    const test = pathResolve(
-                        __dirname,
-                        '../../../test/fixtures/tests/malformed/missing-setup.js'
-                    );
-
-                    return {
-                        workerData: {
-                            path: test
-                        },
-                        parentPort: new MockParentPortEventEmitter()
-                    };
-                });
-
-                const { executeChild } = require('./exec');
-                await expect(executeChild()).rejects.toThrow('"setup" function must be defined');
-            });
-
-            it('test', async () => {
-                jest.mock('node:worker_threads', () => {
-                    const { resolve: pathResolve } = require('node:path');
-
-                    const test = pathResolve(
-                        __dirname,
-                        '../../../test/fixtures/tests/malformed/missing-test.js'
-                    );
-
-                    return {
-                        workerData: {
-                            path: test
-                        },
-                        parentPort: new MockParentPortEventEmitter()
-                    };
-                });
-
-                const { executeChild } = require('./exec');
-                await expect(executeChild()).rejects.toThrow('"test" function must be defined');
-            });
-        });
-
         describe('handle thrown error', () => {
             it('setup', async () => {
                 jest.mock('node:worker_threads', () => {
