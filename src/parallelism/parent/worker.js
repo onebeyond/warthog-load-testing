@@ -1,7 +1,7 @@
 const { Worker } = require('node:worker_threads');
 const { debug } = require('../../utils/log');
-const { handleEvents: handleThreadEvent } = require('../threads/events');
-const { getStages } = require('./orchestrator');
+const { handleEvents: handleThreadEvent } = require('./orchestrator/events');
+const { getStages } = require('../../utils/test/lifecycle');
 
 const debugLabel = 'parallelism:worker';
 

@@ -19,7 +19,7 @@ describe('worker', () => {
     });
 
     it('should create the thread', () => {
-        jest.mock('../threads/events', () => mocks.parallelism.threads.events);
+        jest.mock('./orchestrator/events', () => mocks.parallelism.threads.events);
         const { create } = require('./worker');
         create('../../../test/fixtures/tests/working/minimum-timeout.js');
         expect(mocks.node.Worker.mock.calls[0][1]).toEqual({

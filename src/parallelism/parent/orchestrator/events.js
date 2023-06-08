@@ -1,5 +1,5 @@
 const { setTimeout } = require('node:timers/promises');
-const { debug } = require('../../utils/log');
+const { debug } = require('../../../utils/log');
 
 const threads = new Set();
 // All the threads would be keeping data on it.
