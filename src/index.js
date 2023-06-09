@@ -3,7 +3,7 @@
 require('dotenv').config();
 const { isMainThread } = require('node:worker_threads');
 const { createTestsPools } = require('./parallelism/parent/pool');
-const { executeChild: execChildThread } = require('./parallelism/threads/exec');
+const { createChild: createChildThread } = require('./parallelism/threads/manage');
 
 async function main() {
     if (isMainThread) {
@@ -17,7 +17,7 @@ async function main() {
          * The main thread would had executed all the childs workers with the
          * variable "isMainThread" set to false.
          */
-        await execChildThread();
+        await createChildThread();
     }
 }
 

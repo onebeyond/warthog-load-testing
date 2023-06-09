@@ -35,8 +35,8 @@ describe('Execute test exports', () => {
                     };
                 });
 
-                const { executeChild } = require('./exec');
-                await expect(executeChild()).rejects.toThrow('Custom forced error');
+                const { createChild } = require('./manage');
+                await expect(createChild()).rejects.toThrow('Custom forced error');
                 expect(mocks.node.parentPort.on).toHaveBeenCalledTimes(1);
                 expect(mocks.node.parentPort.postMessage).toHaveBeenCalledTimes(0);
             });
@@ -60,8 +60,8 @@ describe('Execute test exports', () => {
                     };
                 });
 
-                const { executeChild } = require('./exec');
-                await expect(executeChild()).rejects.toThrow('Custom forced error');
+                const { createChild } = require('./manage');
+                await expect(createChild()).rejects.toThrow('Custom forced error');
                 expect(mocks.node.parentPort).toHaveBeenCalledTimes(1);
                 expect(mocks.node.parentPort).toHaveBeenCalledWith({
                     iteration: {}

@@ -7,8 +7,8 @@ describe('worker threads', () => {
                 }
             },
             threads: {
-                exec: {
-                    executeChild: jest.fn(async () => {})
+                manage: {
+                    createChild: jest.fn(async () => {})
                 }
             }
         }
@@ -16,7 +16,7 @@ describe('worker threads', () => {
 
     beforeEach(() => {
         jest.mock('./parallelism/parent/pool', () => mocks.parallelism.parent.pool);
-        jest.mock('./parallelism/threads/exec', () => mocks.parallelism.threads.exec);
+        jest.mock('./parallelism/threads/manage', () => mocks.parallelism.threads.manage);
     });
 
     it('parent thread should be created one single time', () => {
@@ -25,7 +25,7 @@ describe('worker threads', () => {
         }));
         require('./index');
         expect(mocks.parallelism.parent.pool.createTestsPools).toHaveBeenCalledTimes(1);
-        expect(mocks.parallelism.threads.exec.executeChild).toHaveBeenCalledTimes(0);
+        expect(mocks.parallelism.threads.manage.createChild).toHaveBeenCalledTimes(0);
     });
 
     it('child threads should be created multiple times', () => {
@@ -34,6 +34,6 @@ describe('worker threads', () => {
         }));
         require('./index');
         expect(mocks.parallelism.parent.pool.createTestsPools).toHaveBeenCalledTimes(0);
-        expect(mocks.parallelism.threads.exec.executeChild).toHaveBeenCalledTimes(1);
+        expect(mocks.parallelism.threads.manage.createChild).toHaveBeenCalledTimes(1);
     });
 });
