@@ -13,18 +13,10 @@ const executeLifecycle = {
 
         // eslint-disable-next-line no-constant-condition
         while (true) {
-            let testIteration = 0;
             // eslint-disable-next-line no-loop-func
             Array.from({ length: workerData.iterations }).forEach(async () => {
-                testIteration += 1;
                 try {
-                    const { duration } = await getPerformance({
-                        test: workerData.testLifecycle.test,
-                        iterations: {
-                            loopIteration: testIteration,
-                            threadIteration: workerData.threadTimerIteration
-                        }
-                    });
+                    const { duration } = await getPerformance(workerData.testLifecycle.test);
                     parentPort.postMessage({ iteration: { duration } });
                 } catch (error) {
                     console.log(error);
