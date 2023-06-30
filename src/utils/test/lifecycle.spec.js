@@ -32,6 +32,17 @@ describe('should fail', () => {
                 validate.byTestPath(testPath).test();
             }).toThrow('"test" function must be defined');
         });
+
+        it('expect', async () => {
+            const testPath = pathResolve(
+                __dirname,
+                '../../../test/fixtures/tests/missing/expect.js'
+            );
+
+            expect(() => {
+                validate.byTestPath(testPath).expect();
+            }).toThrow('Expect is not an array "undefined"');
+        });
     });
 
     describe('malformed test section', () => {

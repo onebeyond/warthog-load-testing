@@ -28,5 +28,6 @@ module.exports = {
         }
     ],
     setup,
-    test
+    test,
+    expect: []
 };
