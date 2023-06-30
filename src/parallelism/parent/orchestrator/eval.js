@@ -3,7 +3,7 @@ function getAverageDuration({ succeed, amount }) {
 }
 
 function testAveragePassed(expected, current) {
-    return current > expected;
+    return current <= expected;
 }
 
 function allIterationsFinished({ succeed, error }, expect) {
