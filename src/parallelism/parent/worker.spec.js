@@ -29,8 +29,12 @@ describe('worker', () => {
             }
         });
         expect(mocks.parallelism.threads.events.handleEvents).toHaveBeenCalledTimes(1);
-        expect(mocks.parallelism.threads.events.handleEvents).toHaveBeenCalledWith({}, [
-            { iterations: 1, seconds: 1 }
-        ]);
+        expect(mocks.parallelism.threads.events.handleEvents).toHaveBeenCalledWith(
+            {},
+            {
+                expect: [],
+                stages: [{ iterations: 1, seconds: 1 }]
+            }
+        );
     });
 });

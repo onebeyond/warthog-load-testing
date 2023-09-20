@@ -1,5 +1,6 @@
 const { setTimeout } = require('node:timers/promises');
 const { debug } = require('../../../utils/log');
+const { allIterationsFinished } = require('./eval');
 
 const threads = new Set();
 // All the threads would be keeping data on it.
@@ -8,8 +9,9 @@ const scriptIterations = {
     error: []
 };
 
-function handleEvents(worker, stages) {
+function handleEvents(worker, test) {
     const { threadId } = worker;
+    const { expect, stages } = test;
 
     threads.add(threadId);
     const debugLabel = `parallelism:thread:${threadId}`;
@@ -26,16 +28,7 @@ function handleEvents(worker, stages) {
         debug(debugLabel, `Thread ${threadId} exiting, ${threads.size} running...`);
 
         if (threads.size === 0) {
-            console.table({
-                succeed: {
-                    amount: scriptIterations.succeed.length,
-                    average:
-                        scriptIterations.succeed.reduce((a, b) => a + b, 0) /
-                        scriptIterations.succeed.length /
-                        1000.0
-                },
-                failed: { amount: scriptIterations.error.length }
-            });
+            allIterationsFinished(scriptIterations, expect);
         }
     });
 

@@ -6,12 +6,17 @@ const { validate: validateTestLifecycle } = require('../../utils/test/lifecycle'
 const debugLabel = 'parallelism:worker';
 
 function create(testPath) {
-    const stages = validateTestLifecycle.byTestPath(testPath).stages();
+    const testValidator = validateTestLifecycle.byTestPath(testPath);
+    const stages = testValidator.stages();
     const worker = new Worker(require.main.filename, {
         workerData: { path: testPath, iterations: stages[0].iterations }
     });
+
     debug(debugLabel, `Trying to create worker ${worker.threadId}`);
-    handleThreadEvent(worker, stages);
+    handleThreadEvent(worker, {
+        expect: testValidator.expect(),
+        stages
+    });
 }
 
 module.exports = {

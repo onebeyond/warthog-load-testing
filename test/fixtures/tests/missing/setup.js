@@ -1,4 +1,5 @@
 module.exports = {
     test: () => {},
-    iterations: 1
+    iterations: 1,
+    expect: []
 };

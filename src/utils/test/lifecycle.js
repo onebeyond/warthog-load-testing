@@ -42,6 +42,15 @@ function validateLifecycle(test) {
             }
 
             return main;
+        },
+        expect: () => {
+            const { expect } = test;
+
+            if (!isArray(expect)) {
+                throw new Error(`Expect is not an array "${expect}"`);
+            }
+
+            return expect;
         }
     };
 }
