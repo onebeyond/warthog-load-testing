@@ -14,6 +14,10 @@ describe('Execute test exports', () => {
         on(event, ...args) {
             mocks.node.parentPort.on(event, ...args);
         }
+
+        postMessage(value) {
+            mocks.node.parentPort.postMessage(value);
+        }
     }
 
     describe('should fail', () => {
@@ -67,6 +71,28 @@ describe('Execute test exports', () => {
                     iteration: {}
                 });
             });
+        });
+    });
+
+    describe('should not fail', () => {
+        it('setup', async () => {
+            jest.mock('node:worker_threads', () => {
+                const { resolve: pathResolve } = require('node:path');
+
+                const test = pathResolve(__dirname, '../../../test/fixtures/tests/working/void.js');
+
+                return {
+                    workerData: {
+                        path: test
+                    },
+                    parentPort: new MockParentPortEventEmitter()
+                };
+            });
+
+            const { createChild } = require('./manage');
+            await expect(createChild).not.toThrow();
+            expect(mocks.node.parentPort.on).toHaveBeenCalledTimes(1);
+            expect(mocks.node.parentPort.postMessage).toHaveBeenCalledWith({ setupFinished: true });
         });
     });
 });
