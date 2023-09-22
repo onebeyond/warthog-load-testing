@@ -57,7 +57,7 @@ describe('Execute test exports', () => {
 
                     const test = pathResolve(
                         __dirname,
-                        '../../../test/fixtures/tests/working/end-signal.js'
+                        '../../../test/fixtures/tests/errors/test-throwing.js'
                     );
 
                     return {
@@ -78,11 +78,11 @@ describe('Execute test exports', () => {
                             setupFinished: true
                         }
                     ],
-                    // We indicated two iterations to be done for this test every second
-                    // Since the test is setting the variable for stoping the second loop no more
-                    // than this two instances of the test function would be executed.
-                    [{ iteration: { duration: expect.any(Number) } }],
-                    [{ iteration: { duration: expect.any(Number) } }]
+                    // This time the iteration report to the parent would not contain any data since it has failed.
+                    // The time based iteration would be execute the amount of times that the test
+                    // has indicated.
+                    [{ iteration: {} }],
+                    [{ iteration: {} }]
                 ]);
             });
         });

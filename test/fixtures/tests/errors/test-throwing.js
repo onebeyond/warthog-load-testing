@@ -1,7 +1,7 @@
 module.exports = {
-    stages: [{ iterations: 1, seconds: 1 }],
+    stages: [{ iterations: 2, seconds: 1 }],
     setup: () => {},
-    test: async () => {
+    test: () => {
         throw new Error('Custom forced error');
     }
 };

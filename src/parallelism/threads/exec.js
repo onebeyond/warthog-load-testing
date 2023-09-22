@@ -17,8 +17,9 @@ const executeLifecycle = {
                     const duration = await getPerformance(workerData.testLifecycle.test);
                     parentPort.postMessage({ iteration: { duration } });
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                     parentPort.postMessage({ iteration: {} });
+                    process.env.WARTHOG_END = true;
                 }
             });
 
