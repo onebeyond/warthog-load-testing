@@ -10,7 +10,7 @@ const executeLifecycle = {
     },
     test: async () => {
         // eslint-disable-next-line no-constant-condition
-        while (true) {
+        while (!process.env.WARTHOG_END) {
             // eslint-disable-next-line no-loop-func
             Array.from({ length: workerData.iterations }).forEach(async () => {
                 try {
