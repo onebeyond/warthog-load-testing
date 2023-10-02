@@ -6,7 +6,7 @@ services:
             context: ../
             args:
                 SCRIPT_PARALLELISM: 2
-                WARTHOG_TESTS_PATH: '/usr/src/app/scripts'
+                WARTHOG_TESTS_PATH: './scripts'
                 REDIS_HOST: warthog-stress-test-redis
         container_name: warthog-stress-test-scripts
         networks:

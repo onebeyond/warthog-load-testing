@@ -29,5 +29,7 @@ module.exports = {
     ],
     setup,
     test,
-    expect: []
+    expect: {
+        average: 5
+    }
 };
