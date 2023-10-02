@@ -12,12 +12,6 @@ Key features:
 -   **Performance**: Optimized to reduce latencies when calculating the test suite scores.
 -   **Limitless**: It supports **any protocol** that the <a href="https://nodejs.org/api/all.html">runtime allows</a>, you don't need to extend anything.
 
-## Principles
-
-- **Measure performance** between **future versions** of this framework to observe that **performance does not worsen**. The new features cannot decrease the total number of iterations that could be executed before. This could lead to misunderstandings since it could lead to the conclusion that the system that the end user is testing has worsened its performance. When it really is not like that, what has happened is that its iterations take longer to execute due to a worsening in the framework runtime during the same tasks during each execution.
-
-- The [non blocking](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking) pattern has been kept in mind before starting to develop this software. This is the perfect example to once again remember that new behaviors in the code that go against this principle will not be accepted. In order to follow this principle from the beginning [node workers](https://nodejs.org/api/worker_threads.html) has been used on there that allow to stay aligned with the non blocking pattern.
-
 ## Examples
 
 There is an already developed <a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> project full of load test scripts already developed. That one can be found under the <a href="https://github.com/onebeyond/warthog-load-testing/tree/main/example">example</a> folder of this repository.
@@ -35,10 +29,16 @@ SCRIPT_PARALLELISM=2
 WARTHOG_TESTS_PATH=./tests
 ```
 
-## The insides
+## Principles
 
-<img src="docs/diagrams/how_it_works_internals.svg" />
+- **Measure performance** between **future versions** of this framework to observe that **performance does not worsen**. The new features cannot decrease the total number of iterations that could be executed before. This could lead to misunderstandings since it could lead to the conclusion that the system that the end user is testing has worsened its performance. When it really is not like that, what has happened is that its iterations take longer to execute due to a worsening in the framework runtime during the same tasks during each execution.
+
+- The [non blocking](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking) pattern has been kept in mind before starting to develop this software. This is the perfect example to once again remember that new behaviors in the code that go against this principle will not be accepted. In order to follow this principle from the beginning [node workers](https://nodejs.org/api/worker_threads.html) has been used on there that allow to stay aligned with the non blocking pattern.
 
 ## Contribute
 
 If you want to contribute or help with the development of Warthog, start by reading `CONTRIBUTING.md`.
+
+## The insides
+
+<img src="docs/diagrams/how_it_works_internals.svg" />
