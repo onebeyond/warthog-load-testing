@@ -35,6 +35,8 @@ WARTHOG_TESTS_PATH=./tests
 
 - The [non blocking](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking) pattern has been kept in mind before starting to develop this software. This is the perfect example to once again remember that new behaviors in the code that go against this principle will not be accepted. In order to follow this principle from the beginning [node workers](https://nodejs.org/api/worker_threads.html) has been used on there that allow to stay aligned with the non blocking pattern.
 
+- We assume that the contributors of this tool are not responsible for the damage that some users may cause to external systems that are not authorized to be tested by them.
+
 ## Contribute
 
 If you want to contribute or help with the development of Warthog, start by reading `CONTRIBUTING.md`.
