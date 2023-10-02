@@ -12,6 +12,10 @@ Key features:
 -   **Performance**: Optimized to reduce latencies when calculating the test suite scores.
 -   **Limitless**: It supports **any protocol** that the <a href="https://nodejs.org/api/all.html">runtime allows</a>, you don't need to extend anything.
 
+## Principles
+
+- **Measure performance** between **future versions** of this framework to observe that **performance does not worsen**. The new features cannot decrease the total number of iterations that could be executed before. This could lead to misunderstandings since it could lead to the conclusion that the system that the end user is testing has worsened its performance. When it really is not like that, what has happened is that its iterations take longer to execute due to a worsening in the framework runtime during the same tasks during each execution.
+
 ## Examples
 
 There is an already developed <a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> project full of load test scripts already developed. That one can be found under the <a href="https://github.com/onebeyond/warthog-load-testing/tree/main/example">example</a> folder of this repository.
