@@ -1,4 +1,6 @@
+const path = require('node:path');
 const { isArray, isNumber, isFunction } = require('lodash');
+const { isObject } = require('lodash');
 
 const errors = {
     function: (functionName) => new Error(`"${functionName}" function must be defined`)
@@ -46,8 +48,8 @@ function validateLifecycle(test) {
         expect: () => {
             const { expect } = test;
 
-            if (!isArray(expect)) {
-                throw new Error(`Expect is not an array "${expect}"`);
+            if (!isObject(expect)) {
+                throw new Error(`Expect is not an object "${expect}"`);
             }
 
             return expect;
@@ -59,7 +61,7 @@ module.exports = {
     validate: {
         byTestPath: (testPath) => {
             // eslint-disable-next-line import/no-dynamic-require, global-require
-            const test = require(testPath);
+            const test = require(path.resolve(process.env.PWD, testPath));
             return validateLifecycle(test);
         }
     }

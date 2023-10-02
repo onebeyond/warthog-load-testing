@@ -4,10 +4,7 @@ const { validate } = require('./lifecycle');
 describe('should fail', () => {
     describe('missing test section', () => {
         it('stages', async () => {
-            const testPath = pathResolve(
-                __dirname,
-                '../../../test/fixtures/tests/missing/stages.js'
-            );
+            const testPath = './test/fixtures/tests/missing/stages.js';
 
             expect(() => {
                 validate.byTestPath(testPath).stages();
@@ -15,10 +12,7 @@ describe('should fail', () => {
         });
 
         it('setup', async () => {
-            const testPath = pathResolve(
-                __dirname,
-                '../../../test/fixtures/tests/missing/setup.js'
-            );
+            const testPath = './test/fixtures/tests/missing/setup.js';
 
             expect(() => {
                 validate.byTestPath(testPath).setup();
@@ -26,7 +20,7 @@ describe('should fail', () => {
         });
 
         it('test', async () => {
-            const testPath = pathResolve(__dirname, '../../../test/fixtures/tests/missing/test.js');
+            const testPath = './test/fixtures/tests/missing/test.js';
 
             expect(() => {
                 validate.byTestPath(testPath).test();
@@ -34,24 +28,18 @@ describe('should fail', () => {
         });
 
         it('expect', async () => {
-            const testPath = pathResolve(
-                __dirname,
-                '../../../test/fixtures/tests/missing/expect.js'
-            );
+            const testPath = './test/fixtures/tests/missing/expect.js';
 
             expect(() => {
                 validate.byTestPath(testPath).expect();
-            }).toThrow('Expect is not an array "undefined"');
+            }).toThrow('Expect is not an object "undefined"');
         });
     });
 
     describe('malformed test section', () => {
         describe('stages', () => {
             it('iterations', async () => {
-                const testPath = pathResolve(
-                    __dirname,
-                    '../../../test/fixtures/tests/malformed/stages/iterations.js'
-                );
+                const testPath = './test/fixtures/tests/malformed/stages/iterations.js';
 
                 expect(() => {
                     validate.byTestPath(testPath).stages();
@@ -59,10 +47,7 @@ describe('should fail', () => {
             });
 
             it('seconds', async () => {
-                const testPath = pathResolve(
-                    __dirname,
-                    '../../../test/fixtures/tests/malformed/stages/seconds.js'
-                );
+                const testPath = './test/fixtures/tests/malformed/stages/seconds.js';
 
                 expect(() => {
                     validate.byTestPath(testPath).stages();

@@ -5,5 +5,5 @@ module.exports = {
         // Setting this variable would stop the loop around the main function fo the test
         process.env.WARTHOG_END = true;
     },
-    expect: []
+    expect: {}
 };
