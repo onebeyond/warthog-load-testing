@@ -9,6 +9,11 @@ const scriptIterations = {
     error: []
 };
 
+/**
+ * Subscribing all the pool workers would help the parent one to monitor the reported events
+ * @param {Worker} worker - The pool worker to which we are going to subscribe to its events
+ * @param {*} test - We would retrieve only the test lifecycles that are useful to orchestrate and obtain metrics
+ */
 function handleEvents(worker, test) {
     const { threadId } = worker;
     const { expect, stages } = test;

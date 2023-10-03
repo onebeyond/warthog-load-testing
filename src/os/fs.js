@@ -9,6 +9,11 @@ function validateFolderExists(path) {
     }
 }
 
+/**
+ * Ensuring that all the tests configured exists is important before starting
+ * the lifecycle validations.
+ * @returns {Array} test paths that are valid
+ */
 function getTestsList() {
     const { WARTHOG_TESTS_PATH: path } = process.env;
 
