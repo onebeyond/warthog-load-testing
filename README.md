@@ -12,11 +12,17 @@ Key features:
 -   **Performance**: Optimized to reduce latencies when calculating the test suite scores.
 -   **Limitless**: It supports **any protocol** that the <a href="https://nodejs.org/api/all.html">runtime allows</a>, you don't need to extend anything.
 
-## Examples
+## Usage
 
-There is an already developed <a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> project full of load test scripts already developed. That one can be found under the <a href="https://github.com/onebeyond/warthog-load-testing/tree/main/example">example</a> folder of this repository.
+Normal use mode:
+```bash
+pnpm start
+```
 
-The tool is ready for being integrated with a continuous integration pipeline, enabling quality assurance processes and effortless execution of scripts for automated testing.
+Or use it on debug mode for a verbose output:
+```
+DEBUG="warthog:*" pnpm start
+```
 
 ## Configuration
 
@@ -28,6 +34,12 @@ SCRIPT_PARALLELISM=2
 # The path in which to find the scripts to be executed
 WARTHOG_TESTS_PATH=./tests
 ```
+
+## Examples
+
+There is an already developed <a href="https://github.com/onebeyond/warthog-load-testing">**_Warthog_**</a> project full of load test scripts already developed. That one can be found under the <a href="https://github.com/onebeyond/warthog-load-testing/tree/main/example">example</a> folder of this repository.
+
+The tool is ready for being integrated with a continuous integration pipeline, enabling quality assurance processes and effortless execution of scripts for automated testing.
 
 ## Principles
 
