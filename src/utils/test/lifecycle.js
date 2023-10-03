@@ -27,6 +27,13 @@ function validateLifecycle(test) {
 
             return stages;
         },
+        /**
+         * This is the first function from the test to be executed.
+         * Would ensure that the iterations dependencies have been configured previously.
+         * For example if the test is using a Redis client during each iteration this lifecycle
+         * would be responsible to init the db client.
+         * @returns {Function} must be a function that can be async
+         */
         setup: () => {
             const { setup } = test;
 
@@ -36,6 +43,12 @@ function validateLifecycle(test) {
 
             return setup;
         },
+        /**
+         * When the docs refers to the iterations this means the funcion that contains
+         * de code being executed and measured for knowing if the system being tested
+         * achieves the expected performance.
+         * @returns {Function} must be a function that can be async
+         */
         test: () => {
             const { test: main } = test;
 
@@ -45,6 +58,14 @@ function validateLifecycle(test) {
 
             return main;
         },
+        /**
+         * Another concept being treated on the docs. This time it's the test property
+         * that defines the maximum average of time that the iterations can take measured in seconds.
+         * If the measured iteration average time is higer that the one defined from there the
+         * test output would indicate that it's failed. In the opposite case would mean that the
+         * system being tested passed the stress test.
+         * @returns {object} must be an opject containing "average" property
+         */
         expect: () => {
             const { expect } = test;
 
