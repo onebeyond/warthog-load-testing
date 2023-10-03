@@ -10,7 +10,7 @@
         "node:env:set": "pnpm env use --global 18.16.0",
         "test": "pnpm exec jest",
         "test:watch": "pnpm run test --watchAll",
-        "test:e2e": "pnpm run test --config ./test/jest-e2e.json --forceExit",
+        "test:e2e": "pnpm run test --config ./test/jest-e2e.json",
         "start": "node ./src/index.js"
     },
     "keywords": [
